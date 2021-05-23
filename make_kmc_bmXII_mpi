@@ -1,0 +1,16 @@
+all: b_m_XII_run_mpi
+
+b_m_XII_run_mpi: b_m_XII_run_mpi.cc b_m_XII_run_mpi.h JRand_dyn.o bound_misbound_XII.o kinetic_monte_carlo.o
+	mpicxx b_m_XII_run_mpi.cc JRand_dyn.o bound_misbound_XII.o kinetic_monte_carlo.o -o b_m_XII_run_mpi.out
+
+JRand_dyn.o: Jrand_dyn.cc Jrand_dyn.h
+	g++ -c JRand_dyn.cc
+
+bound_misbound_XII.o: bound_misbound_XII.cc bound_misbound_XII.h model_kmc.h
+	g++ -c bound_misbound_XII.cc
+
+kinetic_monte_carlo.o: kinetic_monte_carlo.cc kinetic_monte_carlo.h
+	g++ -c kinetic_monte_carlo.cc 
+
+clean: 
+	rm JRand_dyn.o bound_misbound_XII.o kinetic_monte_carlo.o b_m_XII_run_mpi.out

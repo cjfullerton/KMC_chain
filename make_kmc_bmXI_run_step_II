@@ -1,0 +1,16 @@
+all: b_m_XI_run_step_II
+
+b_m_XI_run_step_II: b_m_XI_run_step_II.cc b_m_XI_run_step_II.h kmc_test.h kmc_test.cc JRand_dyn.o bound_misbound_XI.o kinetic_monte_carlo.o
+	mpicxx b_m_XI_run_step_II.cc JRand_dyn.o bound_misbound_XI.o kinetic_monte_carlo.o -o b_m_XI_run_step_II.out
+
+JRand_dyn.o: Jrand_dyn.cc Jrand_dyn.h
+	g++ -c JRand_dyn.cc
+
+bound_misbound_XI.o: bound_misbound_XI.cc bound_misbound_XI.h model_kmc.h
+	g++ -c bound_misbound_XI.cc
+
+kinetic_monte_carlo.o: kinetic_monte_carlo.cc kinetic_monte_carlo.h
+	g++ -c kinetic_monte_carlo.cc 
+
+clean: 
+	rm JRand_dyn.o bound_misbound_XI.o kinetic_monte_carlo.o b_m_XI_run_mpi.out
